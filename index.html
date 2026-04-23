@@ -1171,9 +1171,13 @@ input:not([type="checkbox"]), select, textarea {
           <button type="submit" class="btn-submit">Anfrage absenden →</button>
         </form>
         <div class="form-success" id="formSuccess">
-          <div class="check">✅</div>
-          <h3>Danke für eure Anfrage!</h3>
-          <p>Wir melden uns innerhalb von 24 Stunden unter der angegebenen E-Mail-Adresse.</p>
+          <div class="check">✉️</div>
+          <h3>Fast fertig!</h3>
+          <p>Falls sich euer Mail-Programm nicht geöffnet hat, klickt den Button unten oder kopiert die Anfrage und schickt sie manuell an <strong>hi@kreuzgarten.berlin</strong>.</p>
+          <a id="mailtoFallback" href="#" class="btn-primary" style="display:inline-block;margin:1.2rem 0 0.8rem;">✉ Mail-Programm öffnen</a>
+          <br>
+          <button onclick="copyAnfrage()" style="background:none;border:1px solid var(--border);color:var(--green-mid);font-family:var(--font-body);font-size:0.8rem;padding:0.5rem 1.2rem;border-radius:var(--radius);cursor:pointer;margin-top:0.4rem;" id="copyBtn">Anfrage kopieren</button>
+          <pre id="anfrageText" style="display:none;"></pre>
         </div>
       </div>
     </div>
@@ -1353,29 +1357,29 @@ input:not([type="checkbox"]), select, textarea {
     const v = (id) => document.getElementById(id)?.value.trim() || '';
     const checked = (id) => document.getElementById(id)?.checked;
 
-    const name     = `${v('vorname')} ${v('nachname')}`;
-    const datum    = v('datum');
-    const dauer    = v('dauer');
-    const format   = v('format');
-    const personen = v('personen');
-    const telefon  = v('telefon');
-    const nachricht= v('nachricht');
-    const verein   = checked('verein') ? 'Ja' : 'Nein';
-    const email    = v('email');
+    const name      = `${v('vorname')} ${v('nachname')}`;
+    const datum     = v('datum');
+    const dauer     = v('dauer');
+    const format    = v('format');
+    const personen  = v('personen');
+    const telefon   = v('telefon');
+    const nachricht = v('nachricht');
+    const verein    = checked('verein') ? 'Ja' : 'Nein';
+    const email     = v('email');
 
     const betreff = `Buchungsanfrage Kreuzgarten – ${datum || 'Datum offen'}`;
 
     const body = [
-      `Name:              ${name}`,
-      `E-Mail:            ${email}`,
-      `Telefon:           ${telefon || '–'}`,
+      `Name:          ${name}`,
+      `E-Mail:        ${email}`,
+      `Telefon:       ${telefon || '–'}`,
       ``,
-      `Datum:             ${datum || '–'}`,
-      `Dauer:             ${dauer || '–'}`,
-      `Art:               ${format || '–'}`,
-      `Personen:          ${personen || '–'}`,
+      `Datum:         ${datum || '–'}`,
+      `Dauer:         ${dauer || '–'}`,
+      `Art:           ${format || '–'}`,
+      `Personen:      ${personen || '–'}`,
       ``,
-      `Vereinsrabatt:     ${verein}`,
+      `Vereinsrabatt: ${verein}`,
       ``,
       `Nachricht:`,
       nachricht || '–',
@@ -1385,14 +1389,29 @@ input:not([type="checkbox"]), select, textarea {
       + `?subject=${encodeURIComponent(betreff)}`
       + `&body=${encodeURIComponent(body)}`;
 
+    // Try to open mail client
     window.location.href = mailto;
 
-    // Show success message after short delay
+    // Store for fallback
+    document.getElementById('mailtoFallback').href = mailto;
+    document.getElementById('anfrageText').textContent =
+      `An: hi@kreuzgarten.berlin\nBetreff: ${betreff}\n\n${body}`;
+
+    // Show success screen
     setTimeout(() => {
       form.style.display = 'none';
       document.getElementById('formSuccess').style.display = 'block';
-    }, 800);
+    }, 600);
   });
+
+  function copyAnfrage() {
+    const text = document.getElementById('anfrageText').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '✓ Kopiert!';
+      setTimeout(() => btn.textContent = 'Anfrage kopieren', 2000);
+    });
+  }
 
   // ─── Set min date for date input ───
   const dateInput = document.getElementById('datum');
