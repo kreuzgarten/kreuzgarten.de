@@ -522,7 +522,7 @@
       color: var(--green-mid);
       margin-bottom: 0.45rem;
     }
-    input, select, textarea {
+input:not([type="checkbox"]), select, textarea {
       width: 100%;
       font-family: var(--font-body);
       font-size: 0.95rem;
@@ -535,7 +535,7 @@
       outline: none;
       -webkit-appearance: none;
     }
-    input:focus, select:focus, textarea:focus {
+    input:not([type="checkbox"]):focus, select:focus, textarea:focus {
       border-color: var(--green-soft);
       box-shadow: 0 0 0 3px rgba(74,122,96,0.12);
     }
@@ -698,6 +698,64 @@
     }
     .modal ul { padding-left: 1.2rem; }
     .modal a { color: var(--terra); text-decoration: underline; }
+
+    /* ─── Instagram ─── */
+    .insta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.2rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(253,250,245,0.7) !important;
+      border: 1px solid rgba(253,250,245,0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      text-decoration: none !important;
+    }
+    .insta-btn:hover {
+      color: var(--white) !important;
+      border-color: rgba(253,250,245,0.5);
+      background: rgba(253,250,245,0.06);
+    }
+    .insta-strip {
+      background: var(--green-mid);
+      padding: 3.5rem 3rem;
+      text-align: center;
+    }
+    .insta-strip-inner { max-width: 600px; margin: 0 auto; }
+    .insta-strip p {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-muted);
+      margin-bottom: 0.6rem;
+    }
+    .insta-strip h3 {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+    }
+    .insta-strip h3 em { font-style: italic; color: var(--terra-light); }
+    .insta-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(253,250,245,0.35);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.85rem 2rem;
+      border-radius: var(--radius);
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .insta-cta:hover { background: rgba(253,250,245,0.08); border-color: rgba(253,250,245,0.6); }
 
     /* ─── Animations ─── */
     @keyframes fadeUp {
@@ -898,13 +956,13 @@
         <img src="images/garten1.jpg" alt="Innengarten mit Tisch" loading="lazy" />
       </div>
       <div class="g-item g-2">
-        <img src="images/raum.jpg" alt="Hauptraum" loading="lazy" />
+        <img src="images/raum1.jpg" alt="Hauptraum Kreuzgarten" loading="lazy" />
       </div>
       <div class="g-item g-3">
         <img src="images/garten3.jpg" alt="Gartenbeet entlang der Wand" loading="lazy" />
       </div>
       <div class="g-item g-4">
-        <img src="images/IMG_8435_2.jpg" alt="Garten Sitzecke" loading="lazy" />
+        <img src="images/raum2.jpg" alt="Zweiter Raum Kreuzgarten" loading="lazy" />
       </div>
       <div class="g-item g-5">
         <img src="images/fenster.jpg" alt="Blick aus dem Raum in den Garten" loading="lazy" />
@@ -1036,7 +1094,7 @@
             </div>
             <div>
               <label for="personen">Teilnehmerzahl</label>
-              <input type="number" id="personen" name="personen" min="1" max="40" placeholder="z.B. 15" />
+              <input type="number" id="personen" name="personen" min="1" max="150" placeholder="z.B. 15" />
             </div>
           </div>
           <div class="form-row">
@@ -1063,12 +1121,28 @@
   </div>
 </section>
 
+<!-- ─── Instagram Strip ─── -->
+<div class="insta-strip">
+  <div class="insta-strip-inner">
+    <p>Folgt uns</p>
+    <h3>Kreuzgarten auf <em>Instagram</em></h3>
+    <a href="https://www.instagram.com/kreuzgarten/" target="_blank" rel="noopener" class="insta-cta">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      @kreuzgarten auf Instagram
+    </a>
+  </div>
+</div>
+
 <!-- ─── Footer ─── -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
       <a href="#home" class="nav-logo">Kreuz<span>garten</span></a>
       <p>Mietbarer Veranstaltungsraum<br>mit Garten in Berlin-Kreuzberg.<br>Für Workshops, Seminare & Kurse.</p>
+      <a href="https://www.instagram.com/kreuzgarten/" target="_blank" rel="noopener" class="insta-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        @kreuzgarten
+      </a>
     </div>
     <div class="footer-col">
       <h5>Navigation</h5>
