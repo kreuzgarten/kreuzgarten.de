@@ -905,7 +905,7 @@ input:not([type="checkbox"]), select, textarea {
   <div class="hero-texture"></div>
   <div class="hero-content">
     <p class="hero-eyebrow">Berlin-Kreuzberg · Raum mieten</p>
-    <h1 class="hero-title">Ein Raum<br>für <em>Ideen</em><br>und Menschen</h1>
+    <h1 class="hero-title">Kreuzgarten –<br>deine <em>Oase</em><br>in Berlin</h1>
     <p class="hero-sub">Zwei Räume, ~90&thinsp;m² Fläche und 100&thinsp;m² Innengarten im Herzen von Kreuzberg – buchbar Mo–Fr, 8–18 Uhr für Workshops, Seminare und Kurse.</p>
     <div class="hero-actions">
       <a href="#buchung" class="btn-primary">Raum anfragen</a>
@@ -1104,14 +1104,7 @@ input:not([type="checkbox"]), select, textarea {
       </div>
 
       <div class="buchung-form reveal" id="buchungForm">
-        <!-- 
-          FORMSPREE SETUP (kostenlos, für GitHub Pages):
-          1. Konto anlegen auf formspree.io
-          2. Neues Formular erstellen → Endpoint-URL kopieren
-          3. action-Attribut unten ersetzen: action="https://formspree.io/f/DEIN_ID"
-          Alternativ: Netlify Forms, EmailJS, oder eigenes Backend.
-        -->
-        <form id="contactForm" action="https://formspree.io/f/DEINE_FORMSPREE_ID" method="POST">
+        <form id="contactForm">
           <div class="form-row-split">
             <div>
               <label for="vorname">Vorname *</label>
@@ -1262,17 +1255,16 @@ input:not([type="checkbox"]), select, textarea {
     <h2>Impressum</h2>
     <h3>Angaben gemäß § 5 TMG</h3>
     <p>
-      <strong>[Vorname Nachname / Unternehmensname]</strong><br>
-      [Straße und Hausnummer]<br>
-      10999 Berlin
+      <strong>Daniel Galeotti</strong><br>
+      Wrangelstraße 16<br>
+      10997 Berlin
     </p>
     <h3>Kontakt</h3>
-    <p>E-Mail: <a href="mailto:hi@kreuzgarten.de">hi@kreuzgarten.de</a></p>
+    <p>E-Mail: <a href="mailto:hi@kreuzgarten.berlin">hi@kreuzgarten.berlin</a></p>
     <h3>Verantwortlich für den Inhalt (§ 55 Abs. 2 RStV)</h3>
-    <p>[Vorname Nachname]<br>[Anschrift wie oben]</p>
+    <p>Daniel Galeotti<br>Wrangelstraße 16, 10997 Berlin</p>
     <h3>Haftungsausschluss</h3>
     <p>Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir keine Gewähr übernehmen.</p>
-    <p style="font-size:0.78rem;color:#999;margin-top:1.5rem;">⚠️ Platzhalter – bitte vollständig ausfüllen und ggf. anwaltlich prüfen lassen.</p>
   </div>
 </div>
 
@@ -1295,8 +1287,8 @@ input:not([type="checkbox"]), select, textarea {
     <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung sowie Widerspruch. Wenden Sie sich hierzu an <a href="mailto:hi@kreuzgarten.de">hi@kreuzgarten.de</a>. Sie haben zudem das Recht, Beschwerde bei einer Datenschutzaufsichtsbehörde einzulegen.</p>
     <h3>7. Google Kalender</h3>
     <p>Diese Website bindet einen öffentlich freigegebenen Google Kalender ein. Dabei werden Daten an Google Ireland Limited übermittelt. Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Datenschutzerklärung</a>.</p>
-    <h3>8. Formulardienst</h3>
-    <p>Das Kontaktformular nutzt Formspree (Formspree, Inc., USA). Ihre Daten werden auf deren Servern verarbeitet. Nähere Informationen: <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">Formspree Privacy Policy</a>. Alternativ können Sie uns direkt per E-Mail kontaktieren.</p>
+    <h3>8. Kontaktformular</h3>
+    <p>Das Buchungsformular öffnet den E-Mail-Client des Nutzers (mailto). Es werden keine Daten an Drittanbieter übermittelt. Die Anfrage wird direkt als E-Mail an uns gesendet.</p>
     <p style="font-size:0.78rem;color:#999;margin-top:1.5rem;">⚠️ Platzhalter – bitte durch eine DSGVO-konforme Erklärung ersetzen, ggf. mit juristischer Unterstützung.</p>
   </div>
 </div>
@@ -1354,30 +1346,53 @@ input:not([type="checkbox"]), select, textarea {
     }
   });
 
-  // ─── Form submit (Formspree AJAX) ───
+  // ─── Form submit → mailto ───
   const form = document.getElementById('contactForm');
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const btn = form.querySelector('.btn-submit');
-    btn.textContent = 'Wird gesendet …';
-    btn.disabled = true;
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' }
-      });
-      if (res.ok) {
-        form.style.display = 'none';
-        document.getElementById('formSuccess').style.display = 'block';
-      } else {
-        btn.textContent = 'Fehler – bitte erneut versuchen';
-        btn.disabled = false;
-      }
-    } catch {
-      btn.textContent = 'Fehler – bitte erneut versuchen';
-      btn.disabled = false;
-    }
+
+    const v = (id) => document.getElementById(id)?.value.trim() || '';
+    const checked = (id) => document.getElementById(id)?.checked;
+
+    const name     = `${v('vorname')} ${v('nachname')}`;
+    const datum    = v('datum');
+    const dauer    = v('dauer');
+    const format   = v('format');
+    const personen = v('personen');
+    const telefon  = v('telefon');
+    const nachricht= v('nachricht');
+    const verein   = checked('verein') ? 'Ja' : 'Nein';
+    const email    = v('email');
+
+    const betreff = `Buchungsanfrage Kreuzgarten – ${datum || 'Datum offen'}`;
+
+    const body = [
+      `Name:              ${name}`,
+      `E-Mail:            ${email}`,
+      `Telefon:           ${telefon || '–'}`,
+      ``,
+      `Datum:             ${datum || '–'}`,
+      `Dauer:             ${dauer || '–'}`,
+      `Art:               ${format || '–'}`,
+      `Personen:          ${personen || '–'}`,
+      ``,
+      `Vereinsrabatt:     ${verein}`,
+      ``,
+      `Nachricht:`,
+      nachricht || '–',
+    ].join('\n');
+
+    const mailto = `mailto:hi@kreuzgarten.berlin`
+      + `?subject=${encodeURIComponent(betreff)}`
+      + `&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailto;
+
+    // Show success message after short delay
+    setTimeout(() => {
+      form.style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    }, 800);
   });
 
   // ─── Set min date for date input ───
