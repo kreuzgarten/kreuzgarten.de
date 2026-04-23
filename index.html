@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kreuzgarten – Raum für Workshops & Seminare in Kreuzberg</title>
+  <meta name="description" content="Kreuzgarten – Miete unseren 120m² großen Veranstaltungsraum mit Garten in Berlin-Kreuzberg für Workshops, Seminare und Kurse." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Design Tokens ─── */
+    :root {
+      --green-deep:   #1a3028;
+      --green-mid:    #2e5040;
+      --green-soft:   #4a7a60;
+      --green-muted:  #8cad96;
+      --cream:        #f4ede0;
+      --cream-warm:   #ede3d0;
+      --terra:        #b86b45;
+      --terra-light:  #d4886a;
+      --ink:          #1c1c1a;
+      --ink-soft:     #3d3d38;
+      --white:        #fdfaf5;
+      --border:       rgba(26,48,40,0.15);
+      --font-head:    'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', system-ui, sans-serif;
+      --radius:       4px;
+      --ease:         cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--ink);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    img { display: block; width: 100%; object-fit: cover; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Navigation ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    }
+    nav.scrolled {
+      background: rgba(26,48,40,0.97);
+      box-shadow: 0 1px 24px rgba(0,0,0,0.18);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--green-muted); font-style: italic; }
+    .nav-links {
+      display: flex;
+      gap: 2.4rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(253,250,245,0.8);
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--cream); }
+    .nav-cta {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white) !important;
+      border: 1px solid rgba(253,250,245,0.4);
+      padding: 0.55rem 1.3rem;
+      border-radius: var(--radius);
+      transition: background 0.25s, border-color 0.25s !important;
+    }
+    .nav-cta:hover { background: var(--terra) !important; border-color: var(--terra) !important; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: 0.3s; }
+
+    /* ─── Hero ─── */
+    #home {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg, rgba(26,48,40,0.78) 0%, rgba(26,48,40,0.45) 50%, rgba(46,80,64,0.65) 100%),
+        url('images/garten2.jpg') center 30%/cover no-repeat;
+      transform: scale(1.04);
+      transition: transform 8s var(--ease);
+    }
+    .hero-bg.loaded { transform: scale(1); }
+    .hero-texture {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.022'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--white);
+      padding: 0 1.5rem;
+      max-width: 800px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--green-muted);
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.3s var(--ease) forwards;
+    }
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(3.2rem, 8vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.6rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.55s var(--ease) forwards;
+    }
+    .hero-title em { font-style: italic; color: var(--terra-light); }
+    .hero-sub {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(253,250,245,0.78);
+      line-height: 1.7;
+      margin-bottom: 2.8rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.75s var(--ease) forwards;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.95s var(--ease) forwards;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--terra);
+      color: var(--white);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.9rem 2.2rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--terra);
+      cursor: pointer;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover { background: #a05835; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-block;
+      color: var(--white);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.9rem 2.2rem;
+      border-radius: var(--radius);
+      border: 1px solid rgba(253,250,245,0.35);
+      cursor: pointer;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .btn-ghost:hover { border-color: rgba(253,250,245,0.7); background: rgba(253,250,245,0.08); }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 1s 1.5s ease forwards;
+    }
+    .hero-scroll span {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(253,250,245,0.5);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(253,250,245,0.5), transparent);
+      animation: scrollPulse 2.5s ease-in-out infinite;
+    }
+
+    /* ─── Sections ─── */
+    section { padding: 6rem 3rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--green-deep);
+      margin-bottom: 1.8rem;
+    }
+    .section-title em { font-style: italic; color: var(--terra); }
+
+    /* ─── Info Section ─── */
+    #info { background: var(--white); }
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .info-text p {
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      line-height: 1.8;
+      margin-bottom: 1.4rem;
+    }
+    .info-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-top: 2.5rem;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      background: var(--cream-warm);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    .feature-text strong {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--green-deep);
+      margin-bottom: 0.15rem;
+    }
+    .feature-text span {
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+    }
+    .info-visual {
+      position: relative;
+    }
+    .info-img-main {
+      width: 100%;
+      height: 460px;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .info-img-main img { height: 100%; }
+    .info-img-accent {
+      position: absolute;
+      bottom: -2rem;
+      left: -2rem;
+      width: 180px;
+      height: 220px;
+      border-radius: 3px;
+      overflow: hidden;
+      border: 6px solid var(--white);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    .info-badge {
+      position: absolute;
+      top: 1.5rem;
+      right: -1rem;
+      background: var(--terra);
+      color: var(--white);
+      border-radius: 3px;
+      padding: 1rem 1.2rem;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(184,107,69,0.35);
+    }
+    .info-badge strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1;
+    }
+    .info-badge span {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+    .specs-bar {
+      display: flex;
+      gap: 2.5rem;
+      padding: 1.8rem 2rem;
+      background: var(--green-deep);
+      border-radius: var(--radius);
+      margin-top: 2.5rem;
+    }
+    .spec-item { text-align: center; }
+    .spec-value {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 1.9rem;
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1;
+    }
+    .spec-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ─── Gallery ─── */
+    #galerie { background: var(--cream); }
+    .gallery-intro {
+      max-width: 560px;
+      margin-bottom: 3rem;
+    }
+    .gallery-intro p {
+      font-size: 1rem;
+      color: var(--ink-soft);
+      line-height: 1.75;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 260px 260px;
+      gap: 0.8rem;
+    }
+    .g-item { overflow: hidden; border-radius: 3px; }
+    .g-item img { height: 100%; transition: transform 0.6s var(--ease); }
+    .g-item:hover img { transform: scale(1.04); }
+    .g-1 { grid-column: 1 / 6; grid-row: 1 / 2; }
+    .g-2 { grid-column: 6 / 9; grid-row: 1 / 2; }
+    .g-3 { grid-column: 9 / 13; grid-row: 1 / 2; }
+    .g-4 { grid-column: 1 / 4; grid-row: 2 / 3; }
+    .g-5 { grid-column: 4 / 8; grid-row: 2 / 3; }
+    .g-6 { grid-column: 8 / 13; grid-row: 2 / 3; }
+
+    /* ─── Kalender ─── */
+    #kalender {
+      background: var(--green-deep);
+      padding: 5rem 3rem;
+    }
+    #kalender .section-title { color: var(--cream); }
+    #kalender .section-label { color: var(--green-muted); }
+    .kalender-inner { max-width: 1100px; margin: 0 auto; }
+    .kalender-intro {
+      font-size: 1rem;
+      color: rgba(244,237,224,0.7);
+      margin-bottom: 2.5rem;
+      max-width: 560px;
+      line-height: 1.75;
+    }
+    .kalender-embed {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+    }
+    .kalender-embed iframe {
+      width: 100%;
+      height: 520px;
+      border: none;
+      flex: 1;
+    }
+    .kalender-placeholder {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 4rem 2rem;
+      color: rgba(244,237,224,0.5);
+      text-align: center;
+    }
+    .kalender-placeholder .cal-icon {
+      font-size: 3rem;
+      opacity: 0.4;
+    }
+    .kalender-placeholder p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      max-width: 360px;
+    }
+    .kalender-placeholder code {
+      display: block;
+      font-size: 0.78rem;
+      background: rgba(255,255,255,0.08);
+      padding: 0.8rem 1.2rem;
+      border-radius: var(--radius);
+      margin-top: 0.5rem;
+      color: var(--green-muted);
+      word-break: break-all;
+    }
+
+    /* ─── Buchung ─── */
+    #buchung { background: var(--white); }
+    .buchung-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .buchung-info .section-title { margin-bottom: 1.2rem; }
+    .buchung-info p {
+      font-size: 1rem;
+      color: var(--ink-soft);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    .contact-line {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--green-deep);
+      margin-bottom: 0.6rem;
+    }
+    .contact-line span { font-size: 1.1rem; }
+    .preise-box {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+    .preise-box h4 {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--green-deep);
+      margin-bottom: 1rem;
+    }
+    .preis-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .preis-row:last-child { border-bottom: none; }
+    .preis-row strong { color: var(--terra); font-weight: 500; }
+
+    /* Form */
+    .buchung-form {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+    }
+    .form-row { margin-bottom: 1.3rem; }
+    .form-row-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.3rem;
+    }
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 0.45rem;
+    }
+    input, select, textarea {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--green-soft);
+      box-shadow: 0 0 0 3px rgba(74,122,96,0.12);
+    }
+    textarea { resize: vertical; min-height: 110px; }
+    .form-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      margin-bottom: 1.5rem;
+    }
+    .form-checkbox input[type="checkbox"] {
+      width: 18px; min-width: 18px; height: 18px;
+      margin-top: 2px;
+      accent-color: var(--terra);
+      cursor: pointer;
+    }
+    .form-checkbox label {
+      font-size: 0.8rem;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+      color: var(--ink-soft);
+    }
+    .form-checkbox label a { color: var(--terra); text-decoration: underline; }
+    .btn-submit {
+      width: 100%;
+      background: var(--terra);
+      color: var(--white);
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-submit:hover { background: #a05835; transform: translateY(-1px); }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 3rem 1.5rem;
+    }
+    .form-success .check { font-size: 2.5rem; margin-bottom: 1rem; }
+    .form-success h3 {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      color: var(--green-deep);
+      margin-bottom: 0.75rem;
+    }
+    .form-success p { font-size: 0.95rem; color: var(--ink-soft); }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--ink);
+      color: rgba(253,250,245,0.75);
+      padding: 3rem;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+    }
+    .footer-brand .nav-logo {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(253,250,245,0.5);
+    }
+    .footer-col h5 {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(253,250,245,0.4);
+      margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 0.88rem;
+      color: rgba(253,250,245,0.65);
+      margin-bottom: 0.55rem;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+    .footer-col a:hover { color: var(--cream); }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(253,250,245,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: rgba(253,250,245,0.3);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* ─── Modals ─── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26,48,40,0.75);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white);
+      border-radius: var(--radius);
+      max-width: 720px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 3rem;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.5rem;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: var(--ink-soft);
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+    .modal h2 {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      color: var(--green-deep);
+      margin-bottom: 1.5rem;
+    }
+    .modal h3 {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      color: var(--green-deep);
+      margin: 1.5rem 0 0.5rem;
+    }
+    .modal p, .modal li {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.75;
+      margin-bottom: 0.75rem;
+    }
+    .modal ul { padding-left: 1.2rem; }
+    .modal a { color: var(--terra); text-decoration: underline; }
+
+    /* ─── Animations ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.5; transform: scaleY(1); }
+      50%       { opacity: 1; transform: scaleY(0.75); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        background: var(--green-deep);
+        padding: 5rem 2rem 2rem;
+        gap: 1.5rem;
+        z-index: 90;
+      }
+      .nav-links a { font-size: 1rem; }
+      .nav-hamburger { display: flex; z-index: 95; }
+      section { padding: 4rem 1.5rem; }
+      .info-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .info-img-accent { display: none; }
+      .info-badge { top: 1rem; right: 0.5rem; }
+      .specs-bar { gap: 1.2rem; flex-wrap: wrap; justify-content: center; }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .g-1,.g-2,.g-3,.g-4,.g-5,.g-6 { grid-column: span 1; grid-row: auto; }
+      .buchung-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row-split { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 500px) {
+      .hero-actions { flex-direction: column; align-items: center; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .g-1,.g-2,.g-3,.g-4,.g-5,.g-6 { grid-column: 1; }
+      .info-features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navigation ─── -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">Kreuz<span>garten</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Start</a></li>
+    <li><a href="#info">Info</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#kalender">Kalender</a></li>
+    <li><a href="#buchung" class="nav-cta">Anfragen</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ─── Hero ─── -->
+<section id="home">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Berlin-Kreuzberg · Raum mieten</p>
+    <h1 class="hero-title">Ein Raum<br>für <em>Ideen</em><br>und Menschen</h1>
+    <p class="hero-sub">Zwei Räume, ~90&thinsp;m² Fläche und 100&thinsp;m² Innengarten im Herzen von Kreuzberg – buchbar Mo–Fr, 8–18 Uhr für Workshops, Seminare und Kurse.</p>
+    <div class="hero-actions">
+      <a href="#buchung" class="btn-primary">Raum anfragen</a>
+      <a href="#info" class="btn-ghost">Mehr erfahren</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scrollen</span>
+  </div>
+</section>
+
+<!-- ─── Info ─── -->
+<section id="info">
+  <div class="section-inner">
+    <div class="info-grid">
+      <div class="info-text reveal">
+        <span class="section-label">Über den Raum</span>
+        <h2 class="section-title">Flexibel.<br><em>Einladend.</em> Zentral.</h2>
+        <p>Der Kreuzgarten bietet zwei flexible Räume im Erdgeschoss mit direktem Zugang zum ruhigen Innengarten. Ob Yogakurs, Design-Sprint, Lecture-Abend oder Kreativworkshop – die Räume passen sich eurem Format an.</p>
+        <p>Die offene Raumstruktur lässt sich bestuhlen, freistellen, teilen oder vollständig nutzen. Der ~100&thinsp;m² große Innengarten mit altem Baumbestand steht für Pausen, Outdoor-Elemente oder geselliges Beisammensein zur Verfügung. Buchbar Mo–Fr, 8–18 Uhr.</p>
+        <div class="info-features">
+          <div class="feature-item">
+            <div class="feature-icon">🌿</div>
+            <div class="feature-text">
+              <strong>Innengarten</strong>
+              <span>~100 m² mit Birke & Steinplatten</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">💡</div>
+            <div class="feature-text">
+              <strong>Ausstattung</strong>
+              <span>Beamer, Leinwand, PA-Anlage</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🚪</div>
+            <div class="feature-text">
+              <strong>Zwei Räume</strong>
+              <span>Flexibel einzeln oder gemeinsam</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🚲</div>
+            <div class="feature-text">
+              <strong>Lage & Anreise</strong>
+              <span>ÖPNV & Fahrradinfra optimal</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">☕</div>
+            <div class="feature-text">
+              <strong>Küche & WC</strong>
+              <span>Pantryküche, eine Toilette</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📶</div>
+            <div class="feature-text">
+              <strong>WLAN</strong>
+              <span>Glasfaser, stabil und schnell</span>
+            </div>
+          </div>
+        </div>
+        <div class="specs-bar reveal">
+          <div class="spec-item">
+            <span class="spec-value">~90</span>
+            <span class="spec-label">m² Fläche</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-value">100</span>
+            <span class="spec-label">m² Garten</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-value">Mo–Fr</span>
+            <span class="spec-label">8–18 Uhr</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-value">XBG</span>
+            <span class="spec-label">Kreuzberg</span>
+          </div>
+        </div>
+      </div>
+      <div class="info-visual reveal">
+        <div class="info-img-main">
+          <img src="images/garten4.jpg" alt="Innengarten Kreuzgarten mit Birke" loading="lazy" />
+        </div>
+        <div class="info-img-accent">
+          <img src="images/fenster.jpg" alt="Blick aus dem Raum in den Garten" loading="lazy" />
+        </div>
+        <div class="info-badge">
+          <strong>2</strong>
+          <span>Räume + Garten</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Galerie ─── -->
+<section id="galerie">
+  <div class="section-inner">
+    <div class="gallery-intro reveal">
+      <span class="section-label">Fotogalerie</span>
+      <h2 class="section-title">Bilder<br><em>sagen mehr.</em></h2>
+      <p>Macht euch einen Eindruck – vom hellen Hauptraum bis zum grünen Innengarten.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="g-item g-1">
+        <img src="images/garten1.jpg" alt="Innengarten mit Tisch" loading="lazy" />
+      </div>
+      <div class="g-item g-2">
+        <img src="images/raum.jpg" alt="Hauptraum" loading="lazy" />
+      </div>
+      <div class="g-item g-3">
+        <img src="images/garten3.jpg" alt="Gartenbeet entlang der Wand" loading="lazy" />
+      </div>
+      <div class="g-item g-4">
+        <img src="images/IMG_8435_2.jpg" alt="Garten Sitzecke" loading="lazy" />
+      </div>
+      <div class="g-item g-5">
+        <img src="images/fenster.jpg" alt="Blick aus dem Raum in den Garten" loading="lazy" />
+      </div>
+      <div class="g-item g-6">
+        <img src="images/lage.jpg" alt="Markthalle Kreuzberg – Lage" loading="lazy" />
+      </div>
+    </div>
+    <p style="font-size:0.75rem;color:var(--ink-soft);margin-top:1rem;opacity:0.6;">Lage: direkt am Puls von Kreuzberg</p>
+  </div>
+</section>
+
+<!-- ─── Kalender ─── -->
+<section id="kalender">
+  <div class="kalender-inner">
+    <span class="section-label">Verfügbarkeit</span>
+    <h2 class="section-title">Freie <em>Termine</em> prüfen</h2>
+    <p class="kalender-intro">Im Kalender seht ihr auf einen Blick, wann der Raum belegt ist. Für eine verbindliche Buchung nutzt bitte das Anfrageformular weiter unten.</p>
+    <div class="kalender-embed" id="kalenderEmbed">
+      <!--
+        SETUP: Google Kalender einbetten
+        ────────────────────────────────────────────────────────────────────
+        1. Öffne calendar.google.com mit dem Konto hi@kreuzgarten.de
+        2. Einstellungen → Kalender → [Name des Kalenders] → Kalender einbetten
+        3. Kopiere den iframe-Code und ersetze den Platzhalter unten.
+        4. Empfohlene URL-Parameter:
+           &bgcolor=%231a3028&color=%238cad96&ctz=Europe%2FBerlin&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0
+        ────────────────────────────────────────────────────────────────────
+
+        Beispiel (DEINE KALENDER-ID einsetzen):
+        <iframe src="https://calendar.google.com/calendar/embed?src=DEINE_ID%40group.calendar.google.com&ctz=Europe%2FBerlin&bgcolor=%231a3028&color=%238cad96&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&mode=MONTH" style="border:0" width="100%" height="520" frameborder="0" scrolling="no"></iframe>
+      -->
+      <div class="kalender-placeholder">
+        <div class="cal-icon">📅</div>
+        <p>Google Kalender wird hier eingebettet.<br>Bitte Kalender-Embed-URL eintragen<br>(siehe Kommentar im HTML).</p>
+        <code>calendar.google.com → Einbetten → iframe kopieren</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Buchung ─── -->
+<section id="buchung">
+  <div class="section-inner">
+    <div class="buchung-grid">
+      <div class="buchung-info reveal">
+        <span class="section-label">Buchungsanfrage</span>
+        <h2 class="section-title">Raum <em>anfragen</em></h2>
+        <p>Schickt uns eure Anfrage über das Formular. Wir melden uns in der Regel innerhalb von 24 Stunden mit Verfügbarkeit und Details. Buchbar <strong>Mo–Fr, 8–18 Uhr</strong>.</p>
+        <div class="contact-line">
+          <span>✉️</span>
+          <a href="mailto:hi@kreuzgarten.berlin">hi@kreuzgarten.berlin</a>
+        </div>
+        <div class="contact-line">
+          <span>📍</span>
+          <span>Berlin-Kreuzberg</span>
+        </div>
+        <div class="preise-box">
+          <h4>Mietpreise</h4>
+          <div class="preis-row">
+            <span>Halbtag (bis 4 Std., Mo–Fr)</span>
+            <strong>500 €</strong>
+          </div>
+          <div class="preis-row">
+            <span>Ganztag (bis 8 Std., Mo–Fr)</span>
+            <strong>950 €</strong>
+          </div>
+          <div class="preis-row">
+            <span>Wochenende / Abendveranstaltung</span>
+            <strong>auf Anfrage</strong>
+          </div>
+          <div class="preis-row">
+            <span>Eingetragene Vereine (e.V.)</span>
+            <strong>Rabatt verfügbar</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="buchung-form reveal" id="buchungForm">
+        <!-- 
+          FORMSPREE SETUP (kostenlos, für GitHub Pages):
+          1. Konto anlegen auf formspree.io
+          2. Neues Formular erstellen → Endpoint-URL kopieren
+          3. action-Attribut unten ersetzen: action="https://formspree.io/f/DEIN_ID"
+          Alternativ: Netlify Forms, EmailJS, oder eigenes Backend.
+        -->
+        <form id="contactForm" action="https://formspree.io/f/DEINE_FORMSPREE_ID" method="POST">
+          <div class="form-row-split">
+            <div>
+              <label for="vorname">Vorname *</label>
+              <input type="text" id="vorname" name="vorname" required placeholder="Lena" />
+            </div>
+            <div>
+              <label for="nachname">Nachname *</label>
+              <input type="text" id="nachname" name="nachname" required placeholder="Müller" />
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="email">E-Mail *</label>
+            <input type="email" id="email" name="email" required placeholder="lena@beispiel.de" />
+          </div>
+          <div class="form-row">
+            <label for="telefon">Telefon</label>
+            <input type="tel" id="telefon" name="telefon" placeholder="+49 30 …" />
+          </div>
+          <div class="form-row-split">
+            <div>
+              <label for="datum">Gewünschtes Datum *</label>
+              <input type="date" id="datum" name="datum" required />
+            </div>
+            <div>
+              <label for="dauer">Dauer</label>
+              <select id="dauer" name="dauer">
+                <option value="">Bitte wählen</option>
+                <option>Halbtag Mo–Fr (bis 4 Std.)</option>
+                <option>Ganztag Mo–Fr (bis 8 Std.)</option>
+                <option>Wochenende / Abendveranstaltung</option>
+                <option>Mehrere Tage</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row-split">
+            <div>
+              <label for="format">Art der Veranstaltung</label>
+              <select id="format" name="format">
+                <option value="">Bitte wählen</option>
+                <option>Workshop</option>
+                <option>Seminar / Kurs</option>
+                <option>Meeting / Konferenz</option>
+                <option>Kulturveranstaltung</option>
+                <option>Sonstiges</option>
+              </select>
+            </div>
+            <div>
+              <label for="personen">Teilnehmerzahl</label>
+              <input type="number" id="personen" name="personen" min="1" max="40" placeholder="z.B. 15" />
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="nachricht">Nachricht</label>
+            <textarea id="nachricht" name="nachricht" placeholder="Kurze Beschreibung eures Formats, besondere Anforderungen …"></textarea>
+          </div>
+          <div class="form-checkbox">
+            <input type="checkbox" id="verein" name="verein" />
+            <label for="verein">Wir sind ein eingetragener Verein (e.V.) und anfragen nach dem Vereinsrabatt.</label>
+          </div>
+          <div class="form-checkbox">
+            <input type="checkbox" id="datenschutz" name="datenschutz" required />
+            <label for="datenschutz">Ich habe die <a href="#" onclick="openModal('datenschutzModal')">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu. *</label>
+          </div>
+          <button type="submit" class="btn-submit">Anfrage absenden →</button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <div class="check">✅</div>
+          <h3>Danke für eure Anfrage!</h3>
+          <p>Wir melden uns innerhalb von 24 Stunden unter der angegebenen E-Mail-Adresse.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#home" class="nav-logo">Kreuz<span>garten</span></a>
+      <p>Mietbarer Veranstaltungsraum<br>mit Garten in Berlin-Kreuzberg.<br>Für Workshops, Seminare & Kurse.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigation</h5>
+      <a href="#home">Start</a>
+      <a href="#info">Info & Ausstattung</a>
+      <a href="#galerie">Fotogalerie</a>
+      <a href="#kalender">Verfügbarkeit</a>
+      <a href="#buchung">Buchungsanfrage</a>
+    </div>
+    <div class="footer-col">
+      <h5>Rechtliches</h5>
+      <a onclick="openModal('impressumModal')">Impressum</a>
+      <a onclick="openModal('datenschutzModal')">Datenschutz</a>
+      <a href="mailto:hi@kreuzgarten.de">Kontakt</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Kreuzgarten Berlin</span>
+    <span>Made with 🌿 in Kreuzberg</span>
+  </div>
+</footer>
+
+<!-- ─── Modal: Impressum ─── -->
+<div class="modal-overlay" id="impressumModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('impressumModal')">×</button>
+    <h2>Impressum</h2>
+    <h3>Angaben gemäß § 5 TMG</h3>
+    <p>
+      <strong>[Vorname Nachname / Unternehmensname]</strong><br>
+      [Straße und Hausnummer]<br>
+      10999 Berlin
+    </p>
+    <h3>Kontakt</h3>
+    <p>E-Mail: <a href="mailto:hi@kreuzgarten.de">hi@kreuzgarten.de</a></p>
+    <h3>Verantwortlich für den Inhalt (§ 55 Abs. 2 RStV)</h3>
+    <p>[Vorname Nachname]<br>[Anschrift wie oben]</p>
+    <h3>Haftungsausschluss</h3>
+    <p>Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir keine Gewähr übernehmen.</p>
+    <p style="font-size:0.78rem;color:#999;margin-top:1.5rem;">⚠️ Platzhalter – bitte vollständig ausfüllen und ggf. anwaltlich prüfen lassen.</p>
+  </div>
+</div>
+
+<!-- ─── Modal: Datenschutz ─── -->
+<div class="modal-overlay" id="datenschutzModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('datenschutzModal')">×</button>
+    <h2>Datenschutzerklärung</h2>
+    <h3>1. Verantwortliche Stelle</h3>
+    <p>[Name und Adresse des Betreibers] – Kontakt: <a href="mailto:hi@kreuzgarten.de">hi@kreuzgarten.de</a></p>
+    <h3>2. Erhobene Daten</h3>
+    <p>Im Rahmen des Buchungsanfrage-Formulars erheben wir folgende personenbezogene Daten: Name, E-Mail-Adresse, Telefonnummer (optional), Veranstaltungsdatum und -art sowie Ihre Nachricht.</p>
+    <h3>3. Zweck der Verarbeitung</h3>
+    <p>Die Daten werden ausschließlich zur Bearbeitung Ihrer Buchungsanfrage genutzt und nicht an Dritte weitergegeben.</p>
+    <h3>4. Rechtsgrundlage</h3>
+    <p>Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) sowie Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO).</p>
+    <h3>5. Speicherdauer</h3>
+    <p>Ihre Daten werden gelöscht, sobald sie für die Erreichung des Erhebungszwecks nicht mehr erforderlich sind, spätestens jedoch nach 12 Monaten.</p>
+    <h3>6. Ihre Rechte</h3>
+    <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung sowie Widerspruch. Wenden Sie sich hierzu an <a href="mailto:hi@kreuzgarten.de">hi@kreuzgarten.de</a>. Sie haben zudem das Recht, Beschwerde bei einer Datenschutzaufsichtsbehörde einzulegen.</p>
+    <h3>7. Google Kalender</h3>
+    <p>Diese Website bindet einen öffentlich freigegebenen Google Kalender ein. Dabei werden Daten an Google Ireland Limited übermittelt. Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Datenschutzerklärung</a>.</p>
+    <h3>8. Formulardienst</h3>
+    <p>Das Kontaktformular nutzt Formspree (Formspree, Inc., USA). Ihre Daten werden auf deren Servern verarbeitet. Nähere Informationen: <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">Formspree Privacy Policy</a>. Alternativ können Sie uns direkt per E-Mail kontaktieren.</p>
+    <p style="font-size:0.78rem;color:#999;margin-top:1.5rem;">⚠️ Platzhalter – bitte durch eine DSGVO-konforme Erklärung ersetzen, ggf. mit juristischer Unterstützung.</p>
+  </div>
+</div>
+
+<script>
+  // ─── Nav scroll state ───
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // ─── Hero BG animation ───
+  window.addEventListener('load', () => {
+    document.getElementById('heroBg').classList.add('loaded');
+  });
+
+  // ─── Mobile menu ───
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('#navLinks a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+
+  // ─── Scroll reveal ───
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ─── Modals ───
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal(overlay.id);
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id));
+    }
+  });
+
+  // ─── Form submit (Formspree AJAX) ───
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('.btn-submit');
+    btn.textContent = 'Wird gesendet …';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      } else {
+        btn.textContent = 'Fehler – bitte erneut versuchen';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Fehler – bitte erneut versuchen';
+      btn.disabled = false;
+    }
+  });
+
+  // ─── Set min date for date input ───
+  const dateInput = document.getElementById('datum');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.setAttribute('min', today);
+</script>
+</body>
+</html>
